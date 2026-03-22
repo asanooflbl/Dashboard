@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:5000/api"
+    baseURL: "https://dashboard-server-nine-teal.vercel.app/api"
 });
 
 export async function fetchSummary() {
