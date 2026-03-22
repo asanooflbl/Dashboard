@@ -6,7 +6,11 @@ import transactionRoutes from './routes/transactions.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('Wallet Dashboard API is running!'));
