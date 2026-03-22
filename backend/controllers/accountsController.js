@@ -1,5 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
 import store from '../data/store.js';
+
+let accCounter = 5;
 
 export const getAccounts = async (req, res) => {
     try {
@@ -18,7 +19,7 @@ export const addAccount = async (req, res) => {
         }
 
         const newAccount = {
-            id: uuidv4(),
+            id: `bank-${accCounter++}`,
             bankName,
             balance: Number(balance) || 0,
             currency: currency || 'USD',

@@ -1,5 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
 import store from '../data/store.js';
+
+let txCounter = 5;
 
 export const getSummary = async (req, res) => {
     try {
@@ -40,9 +41,12 @@ export const deposit = async (req, res) => {
         store.summary.totalBalance += Number(amount);
 
         const transaction = {
-            id: uuidv4(), type: 'deposit',
-            walletName: wallet.name, amount: Number(amount),
-            currency: currency || 'USD', status: 'success',
+            id: `tx-${txCounter++}`,
+            type: 'deposit',
+            walletName: wallet.name,
+            amount: Number(amount),
+            currency: currency || 'USD',
+            status: 'success',
             description: `Added to ${wallet.name}`,
             date: new Date().toISOString()
         };
@@ -73,10 +77,14 @@ export const withdraw = async (req, res) => {
         store.summary.totalBalance -= Number(amount);
 
         const transaction = {
-            id: uuidv4(), type: 'withdrawal',
-            walletName: wallet.name, amount: Number(amount),
-            currency: currency || 'USD', status: 'success',
-            description: 'Withdrawn', date: new Date().toISOString()
+            id: `tx-${txCounter++}`,
+            type: 'withdrawal',
+            walletName: wallet.name,
+            amount: Number(amount),
+            currency: currency || 'USD',
+            status: 'success',
+            description: 'Withdrawn',
+            date: new Date().toISOString()
         };
         store.transactions.unshift(transaction);
 
